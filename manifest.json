@@ -1,0 +1,24 @@
+{
+    "manifest_version": 3,
+    "name": "Nexus E",
+    "description": "Special Edition(SSS)",
+    "author": "nikhilsaps",
+    "version": "1.0",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "scripting",
+        "contextMenus"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "action": {
+        "default_popup": "popup/popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+   
+    "options_page": "options/option.html"
+}
