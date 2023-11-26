@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clipboard Assistant</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option {
+      cursor: pointer;
+      padding: 8px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      transition: background-color 0.3s;
+    }
+
+    .option:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="text" id="textInput" placeholder="Type here...">
+    <div class="options" id="optionsContainer"></div>
+  </div>
+
+  <script>
+    // This is a simplified example; replace with your actual JSON data
+    const paraData = {
+      "para": "This is paragraph 1",
+      "para2": "This is paragraph 2",
+      "para3": "This is paragraph 3",
+      "para4": "This is paragraph 4",
+      "para5": "This is paragraph 5",
+    };
+
+    document.getElementById('textInput').addEventListener('input', function () {
+      const inputValue = this.value.toLowerCase();
+      const optionsContainer = document.getElementById('optionsContainer');
+      optionsContainer.innerHTML = '';
+
+      // Check if inputValue is a key in paraData
+      if (paraData.hasOwnProperty(inputValue)) {
+        const option = document.createElement('div');
+        option.classList.add('option');
+        option.textContent = paraData[inputValue];
+        option.addEventListener('click', function () {
+          copyToClipboard(paraData[inputValue]);
+        });
+        optionsContainer.appendChild(option);
+      }
+    });
+
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      alert('Text copied to clipboard: ' + text);
+    }
+  </script>
+</body>
+</html>
