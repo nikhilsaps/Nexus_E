@@ -6,6 +6,9 @@ p.innerHTML = `<div class="popup">
     <a class="popup-item" id="WB">Writeback</a>
     <a class="popup-item" id="LW">Lastword</a>
     <a class="popup-item" id="WU">Wrapping up</a>
+    <a class="popup-item" id="RE_INS">Reinstate</a>
+    <a class="popup-item" id="CAS">CAS</a>
+    <a class="popup-item" id="OTH">Others</a>
     <!-- Add more items as needed -->
   </div>`;
 
