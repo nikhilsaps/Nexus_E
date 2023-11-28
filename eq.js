@@ -20,9 +20,13 @@ document.head.appendChild(s);
 var items = document.querySelector('.popup-items');
 var toggleBtn = document.querySelector('.popup-toggle-btn');
 var jsonData = {
-  "WB": "Writeback \n data",
-  "LW": "Lastword data",
-  "WU": "Wrapping up data"
+  "WB": "Writeback",
+  "LW": "Lastword",
+  "RE_INS": "Reinstate",
+  "CAS":"Clear abuse Section",
+  "WU": "Wrapping up",
+  "OTH":"Others",
+  
   // Add more data as needed
 };
 
