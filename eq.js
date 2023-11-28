@@ -4,10 +4,11 @@ p.innerHTML = `<div class="popup">
   <button class="popup-toggle-btn">&#9660; Actions</button>
   <div class="popup-items">
     <a class="popup-item" id="WB">Writeback</a>
-    <a class="popup-item" id="LW">Lastword</a>
-    <a class="popup-item" id="WU">Wrapping up</a>
-    <a class="popup-item" id="RE_INS">Reinstate</a>
     <a class="popup-item" id="CAS">CAS</a>
+    <a class="popup-item" id="TR">Temp_Reins</a>
+    <a class="popup-item" id="RE_INS">Reinstate</a>
+    <a class="popup-item" id="WU">Wrapping up</a>
+    <a class="popup-item" id="TRANS">Transfer</a>
     <a class="popup-item" id="OTH">Others</a>
     <!-- Add more items as needed -->
   </div>`;
@@ -24,10 +25,11 @@ var items = document.querySelector('.popup-items');
 var toggleBtn = document.querySelector('.popup-toggle-btn');
 var jsonData = {
   "WB": "Writeback",
-  "LW": "Lastword",
-  "RE_INS": "Reinstate",
   "CAS":"Clear abuse Section",
+  "TR": "Temp Reinstate",
+  "RE_INS": "Reinstate",
   "WU": "Wrapping up",
+  "TRANS":"Transfer ",
   "OTH":"Others",
   
   // Add more data as needed
