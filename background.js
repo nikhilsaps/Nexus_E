@@ -61,7 +61,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
       if (script4Enabled) {
         chrome.scripting.executeScript({
           target: { tabId: tab.id },
-          files: ['insights.js']
+          files: ['insight.js']
         });
       }
     });
