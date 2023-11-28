@@ -61,5 +61,6 @@ function copyToClipboard(value) {
 function modifyString(dataString) {
   // Modify the string as needed
   // For example, add a prefix
-  return "Modified: " + dataString;
+  let inv_annotations = document.getElementById("annotationText").value;
+  return "Modified: "+inv_annotations + dataString;
 }
