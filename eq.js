@@ -24,7 +24,7 @@ document.head.appendChild(s);
 var items = document.querySelector('.popup-items');
 var toggleBtn = document.querySelector('.popup-toggle-btn');
 var jsonData = {
-  "WB": "Writeback",
+  "WB": "***ARI*** \n Task ID: \n Contact ID: \n Primary account: \n Customer concern: Solicit enforcement appeal \n Latest enforcement: Solicit \n Previous action date: \n Ab Type: DNR \n Enforcement valid?: Yes/No\n Did customer contact previously for this concern: Yes/No \n Action taken: Deny appeal \n Gap ID/Toll Gate Login (if applicable):\n  SIM link (if applicable): \n SDS verified (if applicable):  \n Justification:\n ***ARI***\n ",
   "CAS":"Clear abuse Section",
   "TR": "Temp Reinstate",
   "RE_INS": "Reinstate",
@@ -62,5 +62,11 @@ function modifyString(dataString) {
   // Modify the string as needed
   // For example, add a prefix
   let inv_annotations = document.getElementById("annotationText").value;
-  return "Modified: "+inv_annotations + dataString;
+  let inv_anno= inv_annotations.split(" ");
+  
+  let updatedstring= dataString.replace(/Task ID:\w*/, `Task ID:${inv_anno[0]}`);
+  updatedstring =updatedstring.replace(/Contact ID:\w*/,`Contact ID: ${inv_anno[1]}${inv_anno[2]}`);
+  console.log(document.getElementsByClassName("pi-widgets nautilus-widgets")[0])
+
+  return updatedstring;
 }
