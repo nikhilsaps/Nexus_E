@@ -1,33 +1,38 @@
-// This is a simplified example; replace with your actual JSON data
-const paraData = {
-  "para1": "This is paragraph 1",
-  "para2": "This is paragraph 2",
-  "para3": "This is paragraph 3",
-  "para4": "This is paragraph 4",
-  "para5": "This is paragraph 5",
-};
+document.addEventListener("DOMContentLoaded", function () {
+  // Get script toggle elements
+  var scriptToggle1 = document.getElementById("scriptToggle1");
+  var scriptToggle2 = document.getElementById("scriptToggle2");
+  var scriptToggle4 = document.getElementById("scriptToggle4");
 
-document.getElementById('textInput').addEventListener('input', function () {
-  const inputValue = this.value.toLowerCase();
-  const optionsContainer = document.getElementById('optionsContainer');
+  // Retrieve toggle states from local storage
+  chrome.storage.local.get(
+    ["script1Enabled", "script2Enabled", "script4Enabled"],
+    function (result) {
+      // Set initial state of toggle elements based on stored values
+      scriptToggle1.checked = result.script1Enabled || false;
+      scriptToggle2.checked = result.script2Enabled || false;
+      scriptToggle4.checked = result.script4Enabled || false;
+    }
+  );
 
-  // Check if inputValue is a key in paraData
-  if (paraData.hasOwnProperty(inputValue)) {
-  const option = document.createElement('div');
-  option.classList.add('option');
-  option.textContent = inputValue; 
-  option.addEventListener('click', function () {
-    copyToClipboard(paraData[inputValue]);
-  });
-  optionsContainer.appendChild(option);
-}
+  // Add event listeners to script toggle checkboxes
+  scriptToggle1.addEventListener("change", toggleScript1);
+  scriptToggle2.addEventListener("change", toggleScript2);
+  scriptToggle4.addEventListener("change", toggleScript4);
+
+  // Function to toggle script 1 execution
+  function toggleScript1() {
+    var script1Enabled = scriptToggle1.checked;
+    chrome.storage.local.set({ script1Enabled: script1Enabled });
+  }
+   function toggleScript2() {
+    var script2Enabled = scriptToggle2.checked;
+    chrome.storage.local.set({ script2Enabled: script2Enabled });
+  }
+
+  // Function to toggle script 4 execution
+  function toggleScript4() {
+    var script4Enabled = scriptToggle4.checked;
+    chrome.storage.local.set({ script4Enabled: script4Enabled });
+  }
 });
-
-function copyToClipboard(text) {
-  const textarea = document.createElement('textarea');
-  textarea.value = text;
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textarea);
-}

@@ -1,53 +1,194 @@
-var p = document.createElement("div");
-p.innerHTML = `<div class="popup">
-  <h2 class="popup-title"></h2>
-  <button class="popup-toggle-btn">&#9660; Actions</button>
-  <div class="popup-items">
-    <a class="popup-item" id="WB">Writeback</a>
-    <a class="popup-item" id="CAS">CAS</a>
-    <a class="popup-item" id="TR">Temp_Reins</a>
-    <a class="popup-item" id="RE_INS">Reinstate</a>
-    <a class="popup-item" id="WU">Wrapping up</a>
-    <a class="popup-item" id="TRANS">Transfer</a>
-    <a class="popup-item" id="OTH">Others</a>
-    <!-- Add more items as needed -->
-  </div>`;
-
-p.setAttribute("class", "popup");
-document.body.appendChild(p);
-
-var s = document.createElement("style");
-s.textContent = `.popup{font-family:Arial,sans-serif;position:fixed;z-index:9999;bottom:10px;left:10px;width:100px;background-color:#fff;border-radius:8px;box-shadow:0 0 8px rgba(0,0,0,0.1);overflow:hidden;transition:transform .3s ease}.popup-title{text-align:center;margin:8px 0;color:#333}.popup-toggle-btn{display:block;width:100%;padding:8px;border:none;background-color:#3498db;color:#fff;font-size:12px;cursor:pointer}.popup-toggle-btn:hover{background-color:#2980b9}.popup-items{display:none;background-color:#f9f9f9;padding:6px 0}.popup-item{display:block;padding:8px;text-decoration:none;color:#333;transition:background-color .3s}.popup-item:hover{background-color:#e0e0e0}.popup.active{transform:translateY(-100%)}`;
-
-document.head.appendChild(s);
-
-var items = document.querySelector('.popup-items');
-var toggleBtn = document.querySelector('.popup-toggle-btn');
-var jsonData = {
-  "WB": "***ARI*** \n Task ID: \n Contact ID: \n Primary account: \n Customer concern: Solicit enforcement appeal \n Latest enforcement: Solicit \n Previous action date: \n Ab Type: DNR \n Enforcement valid?: Yes/No\n Did customer contact previously for this concern: Yes/No \n Action taken: Deny appeal \n Gap ID/Toll Gate Login (if applicable):\n  SIM link (if applicable): \n SDS verified (if applicable):  \n Justification:\n ***ARI***\n ",
-  "CAS":"Clear abuse Section",
-  "TR": "Temp Reinstate",
-  "RE_INS": "Reinstate",
-  "WU": "Wrapping up",
-  "TRANS":"Transfer ",
-  "OTH":"Others",
-  
-  // Add more data as needed
+const annoTemplates = {
+  // ... (unchanged)
 };
 
-toggleBtn.addEventListener('click', function () {
-  items.style.display = (items.style.display === 'block') ? 'none' : 'block';
-});
+function createAnnoSidenav() {
+  const myDiv2 = document.createElement("div");
+  myDiv2.innerHTML = `
+    <div class="anno-sidenav grow">
+      <h2 class="anno-h2"></h2>
+      <button class="anno-dropdown-btn">WriB</button>
+      <div class="anno-dropdown-content">
+        <a class="annobar" id="WB-WA" href="javascript:void(0)">warn</a>
+        <a class="annobar" id="WB-AOC" href="javascript:void(0)">aoc</a>
+        <a class="annobar" id="WB-CL" href="javascript:void(0)">close</a>
+        <a class="annobar" id="WB-SOL" href="javascript:void(0)">sol</a>
+      </div>
 
-var popupItems = document.querySelectorAll('.popup-item');
-popupItems.forEach(function (item) {
-  item.addEventListener('click', function () {
-    var itemId = this.id;
-    var modifiedData = modifyString(jsonData[itemId]);
-    copyToClipboard(modifiedData);
-    items.style.display = 'none';
-  });
-});
+      <button class="anno-dropdown-btn">Trnsfr</button>
+      <div class="anno-dropdown-content">
+        <a class="annobar" id="T-PRI" href="javascript:void(0)">Pri@</a>
+        <a class="annobar" id="T-ARM" href="javascript:void(0)">arm</a>
+        <a class="annobar" id="T-BRI" href="javascript:void(0)">bri</a>
+        <a class="annobar" id="T-BAB" href="javascript:void(0)">busiAB</a>
+      </div>
+
+      <button class="anno-dropdown-btn">resolve</button>
+      <div class="anno-dropdown-content">
+        <a class="annobar" id="AlRDY" href="javascript:void(0)">alrdy done</a>
+        <a class="annobar" id="LW-SOL" href="javascript:void(0)">sol lwed</a>
+        <a class="annobar" id="LW-WA" href="javascript:void(0)">wa lwed</a>
+        <a class="annobar" id="LW-CL" href="javascript:void(0)">cl lwed</a>
+        <a class="annobar" id="LW-REF" href="javascript:void(0)">ref lwed</a>
+        <a class="annobar" id="SPM" href="javascript:void(0)">spam</a>
+        <a class="annobar" id="INTL" href="javascript:void(0)">intl ref</a>
+       </div>
+
+       <button class="anno-dropdown-btn">Temp</button>
+      <div class="anno-dropdown-content">
+        <a class="annobar" id="TR-GC" href="javascript:void(0)">tr gc</a>
+        <a class="annobar" id="TR-PRI" href="javascript:void(0)">tr prime</a>
+        <a class="annobar" id="TR-INVO" href="javascript:void(0)">tr invo</a>
+        <a class="annobar" id="TR-PRIA" href="javascript:void(0)">tr pri@</a>
+        <a class="annobar" id="TR-DIGI" href="javascript:void(0)">tr digi</a>
+      </div>
+
+      <button class="anno-dropdown-btn">Cas/Re</button>
+      <div class="anno-dropdown-content">
+        <a class="annobar" id="CAS-SOL" href="javascript:void(0)">cas sol</a>
+        <a class="annobar" id="CAS-WA" href="javascript:void(0)">cas wa</a>
+        <a class="annobar" id="UPO" href="javascript:void(0)">upo</a>
+        <a class="annobar" id="REINS" href="javascript:void(0)">reins</a>
+        <a class="annobar" id="RPO" href="javascript:void(0)">rpo</a>
+      </div>
+      <button class="anno-dropdown-btn">Other</button>
+      <div class="anno-dropdown-content">
+        <a class="annobar" id="OLR-REF" href="javascript:void(0)">olr rfnd</a>
+        <a class="annobar" id="DIFF" href="javascript:void(0)">diff cx</a>
+        <a class="annobar" id="M-INFO" href="javascript:void(0)">more info</a>
+        <a class="annobar" id="RT-FD" href="javascript:void(0)">rtrn rfnd</a>
+        <a class="annobar" id="DM-RF" href="javascript:void(0)">d/m rfnd</a>
+        <a class="annobar" id="QLA-D" href="javascript:void(0)">qla deny</a>
+      </div>
+    </div>
+  `;
+
+  myDiv2.setAttribute("class", "anno-sidenav grow");
+  document.body.appendChild(myDiv2);
+}
+
+function addCssStyles() {
+  const styleElement = document.createElement("style");
+  styleElement.textContent = `
+.anno-sidenav {
+    width: auto;
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    border: 0px solid;
+    overflow: hidden;
+    box-shadow: 5px 0px 5px 0px rgba(0,0,0,0.1);
+  }
+
+  .anno-sidenav a,
+  .anno-dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .anno-active {
+    background-color: green;
+    color: white;
+  }
+
+  .anno-sidenav a:hover,
+  .anno-dropdown-btn:hover,
+  .anno-h2 {
+    color: #f1f1f1;
+    font-size: 14px;
+  }
+
+  .anno-h2 {
+    text-align: center;
+  }
+
+  .grow {
+    border-radius: 5px 5px 0 0;
+    height: 25px;
+    float: left;
+    max-height: 150%;
+  }
+
+  .grow:hover {
+    height: auto;
+  }
+
+  .anno-dropdown-content {
+    display: none;
+    position: relative;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .anno-dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+  }
+
+  .anno-dropdown-content a:hover {
+    background-color: #ddd;
+  }
+`;
+  document.head.appendChild(styleElement);
+}
+
+function addEventListeners() {
+  const dropdownButtons = document.getElementsByClassName("anno-dropdown-btn");
+  const annolinks = document.getElementsByClassName("annobar");
+
+  for (let i = 0; i < dropdownButtons.length; i++) {
+    dropdownButtons[i].addEventListener("click", handleDropdownClick);
+  }
+
+  for (let i = 0; i < annolinks.length; i++) {
+    annolinks[i].addEventListener("click", handleAnnolinkClick);
+  }
+}
+
+function handleDropdownClick() {
+  this.classList.toggle("anno-active");
+  const dropdownContent = this.nextElementSibling;
+  dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+}
+
+function handleAnnolinkClick() {
+  const invAnnotations = document.getElementById("annotationText").value;
+  const orderIDMatch = /\d{3}-\d{7}-\d{7}/.exec(invAnnotations);
+  const riMatch = /RI Intercepted Order ID:/.exec(annoTemplates[this.id]);
+  const orMatch = /Referred Order: ?()?/.exec(annoTemplates[this.id]);
+  const coMatch = /Claim order:/.exec(annoTemplates[this.id]);
+
+  let toClipboard = annoTemplates[this.id];
+  if (orderIDMatch !== null && orMatch !== null) {
+    const fullText = annoTemplates[this.id].replace(orMatch[0], orMatch[0] + orderIDMatch[0]);
+    toClipboard = fullText.replace("Justification:", "Justification: " + invAnnotations);
+  } else if (orderIDMatch !== null && riMatch !== null) {
+    const fullText = annoTemplates[this.id].replace(riMatch[0], riMatch[0] + orderIDMatch[0]);
+    toClipboard = fullText.replace("Justification:", "Justification: " + invAnnotations);
+  } else if (coMatch !== null && orderIDMatch !== null) {
+    const fullText = annoTemplates[this.id].replace(coMatch[0], coMatch[0] + " " + orderIDMatch[0]);
+    toClipboard = fullText.replace("Justification:", "Justification: " + invAnnotations);
+  } else {
+    toClipboard = annoTemplates[this.id].replace("Justification:", "Justification: " + invAnnotations);
+  }
+
+  copyToClipboard(toClipboard);
+  resetDropdown();
+}
 
 function copyToClipboard(value) {
   const tempInput = document.createElement("textarea");
@@ -56,18 +197,23 @@ function copyToClipboard(value) {
   tempInput.select();
   document.execCommand("copy");
   tempInput.remove();
+  window.scrollTo(0, 0);
 }
 
-function modifyString(dataString) {
-  // Modify the string as needed
-  // For example, add a prefix
-  let inv_annotations = document.getElementById("annotationText").value;
-  let inv_anno= inv_annotations.split(" ");
-  
-  let updatedstring= dataString.replace(/Task ID:\w*/, `Task ID:${inv_anno[0]}`);
-  updatedstring =updatedstring.replace(/Contact ID:\w*/,`Contact ID: ${inv_anno[1]}${inv_anno[2]}`);
-  console.log(document.getElementsByClassName("pi-widgets nautilus-widgets")[0])
+function resetDropdown() {
+  const dropdownButtons = document.getElementsByClassName("anno-dropdown-btn");
+  const dropdownContents = document.getElementsByClassName("anno-dropdown-content");
 
-  return updatedstring;
+  for (let i = 0; i < dropdownButtons.length; i++) {
+    dropdownButtons[i].classList.remove("anno-active");
+  }
+
+  for (let j = 0; j < dropdownContents.length; j++) {
+    dropdownContents[j].style.display = "none";
+  }
 }
-//new 
+
+// Initialize
+createAnnoSidenav();
+addCssStyles();
+addEventListeners();
