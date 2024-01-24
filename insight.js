@@ -196,8 +196,6 @@ div.innerHTML = `<div style="display:flex;"> ${que} and ${count} and ${taskiph} 
 
 
 
-document.getElementById("annotationText").value=justi(que);
-
 
 document.getElementById("reset").addEventListener("click",()=>{
 	localStorage.setItem("TaskCount", "0");
@@ -211,37 +209,4 @@ document
       parseInt(localStorage.getItem("TaskCount")) + parseInt(1)
     );
   });
-}
-function justi(que) {
-  const lowerCaseQue = que.toLowerCase();
-
-  if (lowerCaseQue.includes("dnr")) {
-    return " Dnr queue ";
-  } else if (lowerCaseQue.includes("nsr")) {
-    return " Nsr queue ";
-  } else if (lowerCaseQue.includes("flr")) {
-    return " Flr queue ";
-  } else if (lowerCaseQue.includes("rr")) {
-    return " RR queue ";
-  } else if (lowerCaseQue.includes("sou")) {
-    return " Sou queue ";
-  } else if (lowerCaseQue.includes("refund")) {
-    return " RI queue ";
-  } else if (lowerCaseQue.includes("transit")) {
-    return " Mdr queue ";
-  } else if (lowerCaseQue.includes("linkage")) {
-    return " Linkage queue ";
-  } else if (lowerCaseQue.includes("holistic")) {
-    return " Holistic queue ";
-  } else if (lowerCaseQue.includes("risky")) {
-    return " Risky Order ";
-  } else if (lowerCaseQue.includes("buyer")) {
-    return " mfn queue ";
-  } else if (lowerCaseQue.includes("seller")) {
-    return " MFN RI ";
-  } else if (lowerCaseQue.includes("bars")) {
-    return " bars queue ";
-  }
-
-  return " ";
 }
